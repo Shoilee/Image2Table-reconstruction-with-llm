@@ -14,7 +14,7 @@ The main contribution of this work can be summarized as:
 
 - We conduct extensive experiments, demonstrating the promising performance of VLLMs for table recognition and providing insights into areas for future research.
 
-<img src="assets/model.png" width="60%" />
+<img src="assets/model.png" width="100%" />
 
 
 ## Environment
