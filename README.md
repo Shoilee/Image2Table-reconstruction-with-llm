@@ -41,11 +41,7 @@ Following the argument instruction in `main.py` to modify the setting.
 This repo is built on the pioneer works. We appreciate the following GitHub repos a lot for their valuable code base or datasets:
 
 [SciTSR](https://github.com/Academic-Hammer/SciTSR)
-
 [PubTabNet](https://github.com/ibm-aur-nlp/PubTabNet)
-
 [WTW-Dataset](https://github.com/wangwen-whu/WTW-Dataset)
-
 [yolov10](https://github.com/THU-MIG/yolov10)
-
 [upscayl](https://github.com/upscayl/upscayl)

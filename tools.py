@@ -35,7 +35,7 @@ class Tools:
 
     def upscale_image(self, input_path, index=0):
         command = [
-            r"upscayl-bin.exe",
+            r"models/upscayl-bin.exe",
             "-i", input_path,
             "-o", f"process_img_cache/{index}_current_image.png",
             "-s", "2",
