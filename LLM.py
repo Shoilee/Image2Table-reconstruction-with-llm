@@ -1,40 +1,43 @@
-import requests
+from groq import Groq
 import base64
 import io
 
-from LLM_key import gpt_apikey, gpt_url, gemini_url, gemini_apikey
-from PIL import Image
+from LLM_key import groq_key, llm_model
+from prompt import tsr_html_prompt
 
+image_path = "example/stamboeken/NL-HaNA_2.10.50_45_0355.jpg"
+# Function to encode the image
+def encode_image(image_path):
+  with open(image_path, "rb") as image_file:
+    return base64.b64encode(image_file.read()).decode('utf-8')
 
-def call_LLM(mes, model_name, temperature=0):
-    if model_name == "gpt-4o":
-        url = gpt_url
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': f'Bearer {gpt_apikey}'
+def call_LLM(image_path, prompt=tsr_html_prompt, model_name=llm_model, temperature=0):
+    client = Groq(api_key=groq_key)
+    base64_image = encode_image(image_path)
+    content = [{"type": "text", "text": prompt}]
+
+    content.append({
+       "type": "image_url",
+       "image_url": {
+            "url": f"data:image/jpeg;base64,{base64_image}",
         }
-    elif model_name == "gemini-1.5-pro":
-        url = gemini_url
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': f'Bearer {gemini_apikey}'
-        }
-    else:
-        raise "model_name error!"
-    data = {
-        'model': model_name,
-        'temperature': temperature,
-        'messages': [
+    })
+
+    response = client.chat.completions.create(
+       model=model_name,
+        messages=[
             {
                 "role": "user",
-                "content": mes
+                "content": content,
             }
         ],
-    }
-    response = requests.post(url, headers=headers, json=data)
-    if response.status_code == 200:
-        resp = response.json()
-        result = resp['choices'][0]['message']['content']
-        return result
-    else:
-        raise Exception(f"{response.status_code} error!")
+        temperature=temperature,
+    )
+
+    result = response.choices[0].message.content
+    print(result)
+    return result
+
+
+if __name__ == "__main__":
+   call_LLM(image_path)

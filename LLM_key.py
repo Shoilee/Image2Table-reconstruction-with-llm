@@ -1,4 +1,2 @@
-gpt_apikey = ""
-gpt_url = ""
-gemini_apikey = ""
-gemini_url = ""
+llm_model= ""
+groq_key = ""
