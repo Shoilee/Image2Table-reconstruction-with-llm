@@ -1,2 +1,3 @@
 LLM_key.py
 output/*
+*/*.pyc
