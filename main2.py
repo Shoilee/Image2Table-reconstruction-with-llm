@@ -19,8 +19,12 @@ def main(strategy : str, temp = 0):
     teds = TEDS(structure_only=False)
     teds_struct = TEDS(structure_only=True)
 
-    image_name = "NL-HaNA_2.10.50_45_0355.jpg"
-    image_path = "example/stamboeken/img/NL-HaNA_2.10.50_45_0355.jpg"
+    image_name = "NL-HaNA_2.10.50_72_0036.jpg"
+    image_path = "example/stamboeken/img/NL-HaNA_2.10.50_72_0036.jpg"
+
+    with open(f"example/stamboeken/context.json", 'r', encoding='utf-8') as f:
+        context_label = json.load(f)
+
     # label_html = item["html"]
     # difficulty = item["type"]
 
@@ -33,8 +37,8 @@ def main(strategy : str, temp = 0):
     llm_html = format_td(llm_html)
     image_name = os.path.basename(image_path)
 
-    # TODO: add true labels
-    label_html = llm_html
+    # TRUE HTML
+    label_html = context_label[image_name]["html"]
     label_html = format_td(label_html)
 
     teds_score = teds.evaluate(label_html, llm_html)
@@ -59,4 +63,5 @@ def main(strategy : str, temp = 0):
     save_response_to_file(output_path, image_name, llm_html)
 
 if __name__ == "__main__":
-    main("chain_of_thought")
+    for i in range(10):
+        main("chain_of_thought")
