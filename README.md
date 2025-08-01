@@ -5,25 +5,44 @@
 **SOLUTION REQUIREMENT:** So, what we want a way of traceability or triples with it data (source) provenance.
 
 **SOLUTION:**
-1. Step-1: Reconstrcut the table (TSR & HTR); Image to structure table (e.g., HTML)
-2. Step-2: Use table indexes or cell bounding boxes to trace piece of information (*Triple level provenance* -- **key contribution of the paper**) (data model or semweb technique supporting this)
-3. Step-3: Convert these pieces of information in triples (Information Extraction & KG Construction) (text to triple)
+1. **Step-1**: Reconstrcut the table (Task --> TSR & HTR); Image to structure table (e.g., HTML)
+2. **Step-2**: Use table indexes or cell bounding boxes to trace piece of information (*Triple level provenance* -- **key contribution of the paper**) (data model or semweb technique supporting this; explore rdf 1.2 or PROV-O)
+3. **Step-3**: Convert these pieces of information in triples (Information Extraction & KG Construction) (text to triple)
 
 
-## Step-1
-### Annotation
-- if certain character is unsure place underscore (_)
-- for missing word(s), add _____ 
+## Step-1: Reconstrcut Table
+### Manual Table Reconstruction Annotation
+- if uncertain about a character, place underscore (_)
+- for unclear word(s), add _____ 
 
 
 ### Experiment
 
-|strategy | number of samples|metric|score|
+Task: Image to structured table (e.g., HTML) table
+
+Techniques will be compared: 
+1.  LLM (a: vannila b: chain-of-thought) 
+2.  LORE 
+3.  Loghi (*retraining Laypa with row and cell hierarchy detection; the output will not be a pageXML anymore, rather HTML*)
+
+Evaluation Metric: (1) Tree Edit Distance (TED), considers content (2) TEDS-structs, considers table structure similarity only
+
+Evaluation sample (n=5): ___ENTER IMAGE NAMES___
+
+|strategy | # |TEDS|TEDS-struct|
 |---|---|---|---|
-| llama-4-maverick-17b-128e-instruct (**Vannila**) | 2  | TED , TED-struct  |   |
-| llama-4-maverick-17b-128e-instruct (**Chain-of-Thought**)  |  2 | TED , TED-struct  |   |   |
+| llama-4-maverick-17b-128e-instruct (**Vannila**) | 2  |   |   |
+| llama-4-maverick-17b-128e-instruct (**Chain-of-Thought**)  |  2 |  |   |   |
 |   |   |   |   |   |
 
+
+### Evaluation Metric
+
+| What it measures | Metric | -- |
+|---|---|---|
+|Tree structure similarity-with content| Tree Edit Distance|TED|
+|Tree structure similarity-without content| Tree Edit Distance (ignore content)|TEDS-struct|
+|Bounding Box overlap| |IoU|
 
 ###### Prompt: Vanilla
 ```
