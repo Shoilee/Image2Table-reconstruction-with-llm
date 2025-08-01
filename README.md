@@ -1,14 +1,28 @@
-### Experiment
+**INPUT:** Handwritten Table Image; **OUTPUT:** Knowledge Graph
 
+**PROBLEM:** End-to-end process is unreliable and lack of transparency
+
+**SOLUTION REQUIREMENT:** So, what we want a way of traceability or triples with it data (source) provenance.
+
+**SOLUTION:**
+1. Step-1: Reconstrcut the table (TSR & HTR); Image to structure table (e.g., HTML)
+2. Step-2: Use table indexes or cell bounding boxes to trace piece of information (*Triple level provenance* -- **key contribution of the paper**) (data model or semweb technique supporting this)
+3. Step-3: Convert these pieces of information in triples (Information Extraction & KG Construction) (text to triple)
+
+
+## Step-1
+### Annotation
+- if certain character is unsure place underscore (_)
+- for missing word(s), add _____ 
+
+
+### Experiment
 
 |strategy | number of samples|metric|score|
 |---|---|---|---|
-| Vannila | 10  | TED , TED-struct  |   |
-| Chain of Though  |  10 | TED , TED-struct  |   |   |
+| llama-4-maverick-17b-128e-instruct (**Vannila**) | 2  | TED , TED-struct  |   |
+| llama-4-maverick-17b-128e-instruct (**Chain-of-Thought**)  |  2 | TED , TED-struct  |   |   |
 |   |   |   |   |   |
-
-
-
 
 
 ###### Prompt: Vanilla
