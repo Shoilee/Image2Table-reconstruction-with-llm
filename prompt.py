@@ -1,3 +1,95 @@
+cell_detection_prompt = """
+## Instruction
+You are an expert in identifying table cells from images. Your task is to analyze the provided table image and identify the coordinates of each cell in the table.
+Please provide the coordinates in the format:
+x1,y1;x2,y2;x3,y3;x4,y4
+where (x1, y1) represents the top-left corner of the cell, (x2, y2) represents the top-right corner, (x3, y3) represents the bottom-right corner, and (x4, y4) represents the bottom-left corner.
+Ensure that the coordinates are accurate and correspond to the actual positions of the cells in the image.
+
+## Output format
+
+### Detected Cell Coordinates (polygon format)
+```plaintext        
+x1,y1;x2,y2;x3,y3;x4,y4 #c_1
+x1,y1;x2,y2;x3,y3;x4,y4 #c_2
+x1,y1;x2,y2;x3,y3;x4,y4 #c_3
+...
+x1,y1;x2,y2;x3,y3;x4,y4 #c_n
+```
+
+### Logical Sequence Mapping
+```plaintext
+start_row, end_row, start_col, end_col #c_1
+start_row, end_row, start_col, end_col #c_2
+start_row, end_row, start_col, end_col #c_3
+...
+start_row, end_row, start_col, end_col #c_n      
+```
+"""
+
+htr_prompt = """
+## Instruction
+You are an expert in handwriting text recognition. Your task is to analyze the provided image and extract all handwritten text from it.
+Please provide the extracted text pageXML format providing the coordinates of each text line and the corresponding recognized text.
+Ensure that the text is accurate and corresponds to the actual handwritten content in the image.        
+## Output format
+```xml
+<Page>
+  <TextRegion id="r1">
+    <TextLine id="l1" x1="100" y1="150" x2="400" y2="150" x3="400" y3="200" x4="100" y4="200">
+      <TextEquiv>
+        <Unicode>Your recognized text here</Unicode>
+      </TextEquiv>
+    </TextLine>
+    <TextLine id="l2" x1="100" y1="220" x2="400" y2="220" x3="400" y3="270" x4="100" y4="270">
+      <TextEquiv>
+        <Unicode>Your recognized text here</Unicode>
+      </TextEquiv>
+    </TextLine>
+    ...
+  </TextRegion>
+</Page>
+```
+"""
+
+reconstruct_table_prompt = """
+## Instruction
+You are an expert in reconstructing HTML tables. Your task is to complie information from other agents and reconstruct the table in HTML format.
+Note: 
+1. Use the <thead> and <tbody> tags to distinguish the table header from the table body.
+2. Use only five tags: <table>, <thead>, <tr>, <td>, and <tbody>.
+3. Keep cell index information in the <td> tag using row and col attributes to indicate the row and column numbers of each cell, starting from 0.
+4. Also, keep cell index in the <td> tag using id attribute to map each cell coordinates with cell content.
+4. Pay attention to the structure of the table. Use rowspan and colspan to better interpret the structure information of the table.
+5. Even if some cells are empty, they count as part of the table. Don't ignore any table information.
+
+## Output format
+```html
+<table>
+  <thead>
+    <tr>
+      <td row=0 col=0 id="c_1">Header 1</td>
+      <td row=0 col=1 id="c_2">Header 2</td>
+      <td row=0 col=2 id="c_3">Header 3</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td row=1 col=0 id="c_4">Row 1, Cell 1</td>
+      <td row=1 col=1 id="c_5">Row 1, Cell 2</td>
+      <td row=1 col=2 id="c_6">Row 1, Cell 3</td>
+    </tr>
+    <tr>
+      <td row=2 col=0 id="c_7">Row 2, Cell 1</td>
+      <td row=2 col=1 id="c_8">Row 2, Cell 2</td>
+      <td row=2 col=2 id="c_9">Row 2, Cell 3</td>
+    </tr>
+    ...
+  </tbody>
+</table>
+```
+"""
+
 tsr_html_prompt = """
 Identify the structure of the table and return it to me in HTML format.
 Note: 
