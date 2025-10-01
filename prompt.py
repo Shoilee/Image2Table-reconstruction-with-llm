@@ -65,7 +65,7 @@ Note:
 
 ## Output format
 ```html
-<table>
+<table border="1">
   <thead>
     <tr>
       <td row=0 col=0 id="c_1">Header 1</td>
