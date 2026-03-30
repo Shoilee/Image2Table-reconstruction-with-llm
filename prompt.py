@@ -1,10 +1,10 @@
 cell_detection_prompt = """
 ## Instruction
-You are an expert in identifying table cells from images. Your task is to analyze the provided table image and identify the coordinates of each cell in the table.
+You are an expert in identifying table cell bounding-box from images. Your task is to analyze the provided table image and identify the coordinates of each header and cell in the table.
 Please provide the coordinates in the format:
 x1,y1;x2,y2;x3,y3;x4,y4
 where (x1, y1) represents the top-left corner of the cell, (x2, y2) represents the top-right corner, (x3, y3) represents the bottom-right corner, and (x4, y4) represents the bottom-left corner.
-Ensure that the coordinates are accurate and correspond to the actual positions of the cells in the image.
+Ensure that the coordinates are accurate and correspond to the actual positions of the cells in the image. Include the header and body cells.
 
 ## Output format
 
@@ -17,7 +17,7 @@ x1,y1;x2,y2;x3,y3;x4,y4 #c_3
 x1,y1;x2,y2;x3,y3;x4,y4 #c_n
 ```
 
-### Logical Sequence Mapping
+### Logical Sequence Mapping 
 ```plaintext
 start_row, end_row, start_col, end_col #c_1
 start_row, end_row, start_col, end_col #c_2
@@ -91,7 +91,7 @@ Note:
 """
 
 tsr_html_prompt = """
-Identify the structure of the table and return it to me in HTML format.
+Identify the structure of the table with content in it and return it to me in HTML format.
 Note: 
 1. Use the <thead> and <tbody> tags to distinguish the table header from the table body.
 2. Use only five tags: <table>, <thead>, <tr>, <td>, and <tbody>.
