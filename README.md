@@ -96,3 +96,9 @@ Before giving me the HTML result, take a deep breath, think deeply and describe 
 
 ### answer
 ```
+
+# Acknowledgement
+
+This work builds on prior contributions from the following repository:
+
+- [Enhancing Table Recognition with Vision LLMs](https://github.com/lqzxt/NGTR)
